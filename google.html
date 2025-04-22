@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Clone - Zero Gravity Bounce (Individual Elements)</title>
+  <!-- Google Fonts for a modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Font Awesome Library for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset defaults */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #fff;
+      color: #202124;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Header Styling */
+    header {
+      width: 100%;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    header ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    header ul li a {
+      text-decoration: none;
+      color: #5f6368;
+      font-size: 14px;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+    header ul li a:hover {
+      color: #000;
+    }
+    /* Sign in Button */
+    .signbutton {
+      padding: 8px 16px;
+      border: 1px solid #1a73e8;
+      background-color: transparent;
+      color: #1a73e8;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+      outline: none;
+    }
+    .signbutton:hover {
+      background-color: rgba(26, 115, 232, 0.1);
+    }
+    /* Gmail Icon Styling */
+    .gmail-icon {
+      margin-right: 6px;
+      font-size: 16px;
+    }
+    /* Logo Section */
+    .logo {
+      margin-top: 50px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .logo img {
+      width: 272px;
+      height: auto;
+    }
+    /* Search Bar Section */
+    .bar {
+      width: 100%;
+      max-width: 584px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    /* Search Icon styling (using Font Awesome) */
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      font-size: 20px;
+      color: #5f6368;
+      pointer-events: none;
+    }
+    .searchbar {
+      width: 100%;
+      padding: 14px 20px 14px 45px;
+      border: 1px solid #dfe1e5;
+      border-radius: 24px;
+      font-size: 16px;
+      outline: none;
+      transition: box-shadow 0.3s;
+    }
+    .searchbar:focus {
+      box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+    }
+    .voice {
+      position: absolute;
+      right: 15px;
+      color: #4285f4;
+      cursor: pointer;
+    }
+    .voice i {
+      font-size: 20px;
+    }
+    /* Buttons Section */
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .button {
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #5f6368;
+      border: 1px solid #f8f9fa;
+      border-radius: 4px;
+      background-color: #f8f9fa;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      outline: none;
+    }
+    .button:hover {
+      background-color: #f1f3f4;
+    }
+    .button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header id="header">
+    <ul>
+      <li>
+        <a class="links" href="#user">
+          <button class="signbutton" type="button">Sign in</button>
+        </a>
+      </li>
+      <li>
+        <a href="#grid">
+          <i class="fas fa-th grid-icon" title="Google apps"></i>
+        </a>
+      </li>
+      <li><a href="#images">Images</a></li>
+      <li>
+        <a href="#gmail">
+          <i class="fas fa-envelope gmail-icon" title="Gmail"></i>Gmail
+        </a>
+      </li>
+    </ul>
+  </header>
+  <!-- Google Logo -->
+  <div class="logo" id="logo">
+    <img alt="Google" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+  </div>
+  <!-- Search Bar with Search & Microphone Icons -->
+  <div class="bar" id="bar">
+    <i class="fas fa-search search-icon"></i>
+    <input class="searchbar" type="text" title="Search">
+    <a href="#" class="voice"><i class="fas fa-microphone"></i></a>
+  </div>
+  <!-- Buttons Section -->
+  <div class="buttons" id="buttons">
+    <button class="button" type="button" onclick="triggerGravity()">Google Search</button>
+    <button class="button" type="button" onclick="triggerGravity()">I'm Feeling Lucky</button>
+  </div>
+  
+  <script>
+    let simulationStarted = false;
+    const simulatedElements = [];
+    
+    // Trigger simulation when search is executed (এন্টার বা বাটনে ক্লিক)
+    function triggerGravity() {
+      const searchInput = document.querySelector('.searchbar');
+      if (searchInput.value.trim() === "") return;
+      startSimulation();
+    }
+    
+    // Initialize simulation: প্রতিটি ছোট উপাদানকে আলাদাভাবে সিলেক্ট করে তাদের অবস্থান, ভেলোসিটি ও ঘূর্ণন সেট করা হবে
+    function startSimulation() {
+      if (simulationStarted) return;
+      simulationStarted = true;
+      
+      // নির্বাচিত উপাদানগুলো:
+      // - Header এর সকল সরাসরি উপাদান
+      // - Logo এর সকল উপাদান (যেমন লোগো ইমেজ)
+      // - Bar এর সকল উপাদান (সার্চ ইনপুট, আইকন, মাইক্রোফোন)
+      // - Buttons এর সকল বাটন
+      const headerElems = document.querySelectorAll('#header > *');
+      const logoElems = document.querySelectorAll('#logo > *');
+      const barElems = document.querySelectorAll('#bar > *');
+      const buttonsElems = document.querySelectorAll('#buttons > *');
+      
+      const allElems = [...headerElems, ...logoElems, ...barElems, ...buttonsElems];
+      
+      allElems.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        // রূপান্তর: Absolute positioning এ সেট করা
+        el.style.position = 'absolute';
+        el.style.top = rect.top + 'px';
+        el.style.left = rect.left + 'px';
+        
+        // র‍্যান্ডম ভেলোসিটি (অক্ষাংশ ও দ্রাঘিমাংশ)
+        const vx = (Math.random() - 0.5) * 8;
+        const vy = (Math.random() - 0.5) * 8;
+        // কম angular velocity: (Math.random()-0.5)*2 (ধীরে ঘুরবে)
+        const angularVelocity = (Math.random() - 0.5) * 2;
+        
+        simulatedElements.push({
+          el: el,
+          x: rect.left,
+          y: rect.top,
+          width: rect.width,
+          height: rect.height,
+          vx: vx,
+          vy: vy,
+          rotation: 0,
+          angularVelocity: angularVelocity
+        });
+      });
+      
+      requestAnimationFrame(simulationLoop);
+    }
+    
+    // Simulation loop: প্রতিটি ফ্রেমে উপাদানের অবস্থান, ঘূর্ণন ও বাউন্সিং এফেক্ট আপডেট করা হবে
+    function simulationLoop() {
+      simulatedElements.forEach(item => {
+        // অবস্থান ও ঘূর্ণন আপডেট
+        item.x += item.vx;
+        item.y += item.vy;
+        item.rotation += item.angularVelocity;
+        
+        // স্ক্রিনের বাউন্ডারি চেক এবং বাউন্সিং
+        if (item.x < 0) {
+          item.x = 0;
+          item.vx = -item.vx;
+        }
+        if (item.x + item.width > window.innerWidth) {
+          item.x = window.innerWidth - item.width;
+          item.vx = -item.vx;
+        }
+        if (item.y < 0) {
+          item.y = 0;
+          item.vy = -item.vy;
+        }
+        if (item.y + item.height > window.innerHeight) {
+          item.y = window.innerHeight - item.height;
+          item.vy = -item.vy;
+        }
+        
+        // নতুন অবস্থান ও ঘূর্ণন প্রয়োগ
+        item.el.style.left = item.x + 'px';
+        item.el.style.top = item.y + 'px';
+        item.el.style.transform = 'rotate(' + item.rotation + 'deg)';
+      });
+      
+      requestAnimationFrame(simulationLoop);
+    }
+    
+    // সার্চ ইনপুটে এন্টার কী চাপলে simulation ট্রিগার
+    document.querySelector('.searchbar').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        triggerGravity();
+      }
+    });
+  </script>
+</body>
+</html>
