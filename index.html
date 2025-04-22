@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আহো ভাতিজা আহো!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1b1b1b;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #00b0f0; /* নীল */
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .start-btn {
+            background-color: #00b0f0; /* নীল */
+            color: #fff;
+            font-size: 1.5em;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            animation: bounce 1.5s infinite;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .start-btn:active {
+            transform: scale(0.9);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .phone-icon {
+            width: 80px;
+            height: 80px;
+            margin-top: 40px;
+            background-color: #f50057; /* গোলাপী */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 2.5em;
+            animation: rotateIcon 3s linear infinite;
+        }
+
+        @keyframes rotateIcon {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>আহো ভাতিজা আহো! গুগলের নানির খালি ঘরে ঢুকো!</h1>
+    
+    <button class="start-btn" onclick="window.location.href='google.html';">
+        স্টার্ট
+    </button>
+    
+    <div class="phone-icon">📱</div>
+
+</body>
+  </html>
